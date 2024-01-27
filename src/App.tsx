@@ -17,8 +17,9 @@ function App() {
             </div>
             <h2 className="content__title">All pizzas</h2>
             <div className="content__items">
-              <PizzaItem title="Hawai" price={400} />
+              <PizzaItem title="Hawaii" price={400} />
               <PizzaItem title="Barbecue" price={350} />
+              <PizzaItem title="4 Cheese" price={500} />
             </div>
           </div>
         </div>

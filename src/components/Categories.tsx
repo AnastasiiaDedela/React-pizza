@@ -5,7 +5,7 @@ function Categories() {
         <li className="active">All</li>
         <li>Meat</li>
         <li>Vegetarian</li>
-        <li>Vegetarian</li>
+        <li>Grill</li>
         <li>Spacy</li>
         <li>Closed</li>
       </ul>
