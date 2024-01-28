@@ -20,7 +20,10 @@ function PizzaItem({ title, price, imageUrl, sizes, types }: PizzaItemProps) {
       <div className="pizza-block__selector">
         <ul>
           {types.map((type) => (
-            <li onClick={() => setActiveType(type)} className={activeType === type ? 'active' : ''}>
+            <li
+              key={type}
+              onClick={() => setActiveType(type)}
+              className={activeType === type ? 'active' : ''}>
               {pizzaTypes[type]}
             </li>
           ))}
@@ -28,6 +31,7 @@ function PizzaItem({ title, price, imageUrl, sizes, types }: PizzaItemProps) {
         <ul>
           {sizes.map((size, index) => (
             <li
+              key={size}
               onClick={() => setActiveSize(index)}
               className={activeSize === index ? 'active' : ''}>
               {size} cm

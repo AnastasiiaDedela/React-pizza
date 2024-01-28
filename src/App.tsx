@@ -20,6 +20,7 @@ function App() {
             <div className="content__items">
               {pizzasDetails.map((object) => (
                 <PizzaItem
+                  key={object.id}
                   {...object}
                   // title={object.title}
                   // price={object.price}
