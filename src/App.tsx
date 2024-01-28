@@ -6,6 +6,10 @@ import PizzaItem from './components/PizzaItem';
 import pizzasDetails from './assets/pizzas.json';
 
 function App() {
+  fetch('https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items')
+    .then((res) => res.json())
+    .then((json) => console.log(json));
+
   return (
     <>
       <div className="wrapper">
