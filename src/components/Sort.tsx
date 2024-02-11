@@ -1,12 +1,19 @@
 import { useState } from 'react';
 
-function Sort() {
+function Sort({ value, onClickSortType }) {
   const [sortState, setSortState] = useState(false);
-  const [selectedOpition, setSelectedOpition] = useState(0);
-  const sortOpitions = ['popularity', 'price', 'alphabet'];
-  const selectOption = (index: number) => {
-    setSelectedOpition(index);
+  const sortOpitions = ['rating', '-rating', 'price', '-price', 'title', '-title'];
+  const selectOption = (value) => {
+    onClickSortType(value);
     setSortState(false);
+  };
+
+  const tansformSortType = (value: string): string => {
+    if (value.startsWith('-')) {
+      return value.replace('-', '↓');
+    } else {
+      return '↑' + value;
+    }
   };
 
   return (
@@ -28,18 +35,18 @@ function Sort() {
           onClick={() => {
             setSortState(!sortState);
           }}>
-          {sortOpitions[selectedOpition]}
+          {tansformSortType(value)}
         </span>
       </div>
       {sortState && (
         <div className="sort__popup">
           <ul>
-            {sortOpitions.map((option, index) => (
+            {sortOpitions.map((val, index) => (
               <li
-                key={option}
-                onClick={() => selectOption(index)}
-                className={selectedOpition === index ? 'active' : ''}>
-                {option}
+                key={index}
+                onClick={() => selectOption(val)}
+                className={value === val ? 'active' : ''}>
+                {tansformSortType(val)}
               </li>
             ))}
           </ul>
