@@ -1,0 +1,39 @@
+.root {
+    position: relative;
+    cursor: pointer;
+}
+
+.input {
+    border: 1px solid #2e201446;
+    border-radius: 7px;
+    padding: 10px 40px;
+    width: 330px;
+    font-size: 16px;
+    opacity: 0.7;
+
+    &:focus, &:hover {
+        border: 1px solid #2e2014ab;
+    }
+}
+
+.icon__search {
+    left: 8px;
+    top: 10px;
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    opacity: 0.9;
+}
+
+.icon__close {
+    right: 8px;
+    top: 12px;
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    opacity: 0.5;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}

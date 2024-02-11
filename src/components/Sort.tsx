@@ -10,9 +10,9 @@ function Sort({ value, onClickSortType }) {
 
   const tansformSortType = (value: string): string => {
     if (value.startsWith('-')) {
-      return value.replace('-', '↓');
+      return value.replace('-', '↓ ');
     } else {
-      return '↑' + value;
+      return '↑ ' + value;
     }
   };
 
