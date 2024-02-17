@@ -4,14 +4,17 @@ import Sort from '../components/Sort';
 import PizzaSkeleton from '../components/PizzaItem/PizzaSkeleton';
 import PizzaItem from '../components/PizzaItem';
 // import pizzasDetails from './assets/pizzas.json';
-import { useEffect, useState } from 'react';
+import { SearchContext } from '../App';
+import { useEffect, useState, useContext } from 'react';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   const [pizzaItems, setPizzaItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
   const [sortType, setSortType] = useState('rating');
   const [currentPage, setCurrentPage] = useState(1);
+  const { searchValue } = useContext(SearchContext);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
