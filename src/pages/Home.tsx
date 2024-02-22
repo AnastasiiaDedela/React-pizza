@@ -3,6 +3,7 @@ import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 import PizzaSkeleton from '../components/PizzaItem/PizzaSkeleton';
 import PizzaItem from '../components/PizzaItem';
+import axios from 'axios';
 
 import { SearchContext } from '../App';
 import { useEffect, useState, useContext } from 'react';
@@ -34,15 +35,15 @@ const Home = () => {
 
     const order = sortType.includes('-') ? 'desc' : 'asc';
     const sortBy = sortType.replace('-', '');
-    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const category = categoryId > 0 ? `category=${categoryId}` : categoryId == 0 ? '' : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    fetch(
-      `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        setPizzaItems(json);
+    axios
+      .get(
+        `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+      )
+      .then((res) => {
+        setPizzaItems(res.data);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
