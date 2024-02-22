@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { setSortState, setSortType } from '../redux/slices/sortSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
-function Sort({ value, onClickSortType }) {
-  const [sortState, setSortState] = useState(false);
-  const sortOpitions = ['rating', '-rating', 'price', '-price', 'title', '-title'];
+const sortOpitions = ['rating', '-rating', 'price', '-price', 'title', '-title'];
+
+function Sort() {
+  const sortState = useSelector((state) => state.sort.sortState);
+  const sortType = useSelector((state) => state.sort.sortType);
+  const dispatch = useDispatch();
+
   const selectOption = (value) => {
-    onClickSortType(value);
-    setSortState(false);
+    dispatch(setSortType(value));
+    dispatch(setSortState(false));
   };
 
   const tansformSortType = (value: string): string => {
@@ -33,9 +38,9 @@ function Sort({ value, onClickSortType }) {
         <b>Sort by:</b>
         <span
           onClick={() => {
-            setSortState(!sortState);
+            dispatch(setSortState(!sortState));
           }}>
-          {tansformSortType(value)}
+          {tansformSortType(sortType)}
         </span>
       </div>
       {sortState && (
@@ -45,7 +50,7 @@ function Sort({ value, onClickSortType }) {
               <li
                 key={index}
                 onClick={() => selectOption(val)}
-                className={value === val ? 'active' : ''}>
+                className={sortType === val ? 'active' : ''}>
                 {tansformSortType(val)}
               </li>
             ))}
