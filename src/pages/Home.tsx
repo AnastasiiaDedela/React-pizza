@@ -11,7 +11,7 @@ import PizzaSkeleton from '../components/PizzaItem/PizzaSkeleton';
 import PizzaItem from '../components/PizzaItem';
 import { SearchContext } from '../App';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import { setFilters as sortSetFilters } from '../redux/slices/sortSlice';
+import { setSortFilter } from '../redux/slices/sortSlice';
 import { sortOptions } from '../components/Sort';
 
 const Home = () => {
@@ -53,31 +53,25 @@ const Home = () => {
       });
   };
 
+  //If first render was, check URL-params and save them in Reduxe --->
+
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
       const { sortType, categoryId, currentPage } = params;
-      const sort = sortOptions.find((item) => item === sortType);
-      console.log(sort);
+      // const sort = sortOptions.find((item) => item === sortType);
       dispatch(
         setFilters({
           categoryId,
           currentPage,
         }),
-        sortSetFilters({ sort }),
       );
+      dispatch(setSortFilter({ sortType }));
       isSearch.current = true;
     }
   }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (!isSearch.current) {
-      fetchPizzas();
-    }
-
-    isSearch.current = false;
-  }, [categoryId, sortType, searchValue, currentPage]);
+  // if params were modified and first render was
 
   useEffect(() => {
     if (isMounted.current) {
@@ -89,6 +83,17 @@ const Home = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
+  }, [categoryId, sortType, searchValue, currentPage]);
+
+  //If first render was, send request to get pizzas
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+
+    isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
 
   const pizzas = pizzaItems.map((object) => <PizzaItem key={object.id} {...object} />);
