@@ -1,7 +1,7 @@
 import { setSortState, setSortType } from '../redux/slices/sortSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-const sortOpitions = ['rating', '-rating', 'price', '-price', 'title', '-title'];
+export const sortOptions = ['rating', '-rating', 'price', '-price', 'title', '-title'];
 
 function Sort() {
   const sortState = useSelector((state) => state.sort.sortState);
@@ -46,7 +46,7 @@ function Sort() {
       {sortState && (
         <div className="sort__popup">
           <ul>
-            {sortOpitions.map((val, index) => (
+            {sortOptions.map((val, index) => (
               <li
                 key={index}
                 onClick={() => selectOption(val)}

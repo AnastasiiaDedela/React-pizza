@@ -14,10 +14,13 @@ export const sortSlice = createSlice({
     },
     setSortState(state, action) {
       state.sortState = action.payload;
+    },
+    setFilters(state, action){
+      state.sortType = action.payload.sortType;
     }
   },
 });
 
-export const { setSortType, setSortState } = sortSlice.actions;
+export const { setSortType, setSortState, setFilters } = sortSlice.actions;
 
 export default sortSlice.reducer;
