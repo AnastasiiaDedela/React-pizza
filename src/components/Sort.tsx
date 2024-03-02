@@ -23,13 +23,16 @@ function Sort() {
     }
   };
 
+  //eventlistener hanged on body to catch if was click outside the sort and close sort popup, return serves to delete the event listenet when the tage didmount
   useEffect(() => {
-    document.body.addEventListener('click', (event) => {
+    const handleClickOutside = (event) => {
       if (!event.composedPath().includes(sortRef.current)) {
-        console.log('closed');
         dispatch(setSortState(false));
       }
-    });
+    };
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => document.body.removeEventListener('click', handleClickOutside);
   }, []);
 
   return (
