@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { setSortState, setSortType } from '../redux/slices/sortSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -7,6 +8,7 @@ function Sort() {
   const sortState = useSelector((state) => state.sort.sortState);
   const sortType = useSelector((state) => state.sort.sortType);
   const dispatch = useDispatch();
+  const sortRef = useRef();
 
   const selectOption = (value) => {
     dispatch(setSortType(value));
@@ -21,8 +23,17 @@ function Sort() {
     }
   };
 
+  useEffect(() => {
+    document.body.addEventListener('click', (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        console.log('closed');
+        dispatch(setSortState(false));
+      }
+    });
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
