@@ -28,7 +28,7 @@ function PizzaItem({ id, title, price, imageUrl, sizes, types }: PizzaItemProps)
       price,
       imageUrl,
       type: pizzaTypes[activeType],
-      size: activeSize,
+      size: sizes[activeSize],
     };
     dispatch(addItem(item));
   };
