@@ -98,7 +98,6 @@ const Home = () => {
 
   const pizzas = pizzaItems.map((object) => <PizzaItem key={object.id} {...object} />);
   const skeletons = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />);
-
   return (
     <div className="container">
       <div className="content__top">
