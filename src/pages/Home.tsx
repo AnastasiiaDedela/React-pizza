@@ -35,7 +35,7 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
 
     const order = sortType.includes('-') ? 'desc' : 'asc';
@@ -43,14 +43,11 @@ const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : categoryId == 0 ? '' : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    axios
-      .get(
-        `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-      )
-      .then((res) => {
-        setPizzaItems(res.data);
-        setIsLoading(false);
-      });
+    const res = await axios.get(
+      `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+    );
+    setPizzaItems(res.data);
+    setIsLoading(false);
   };
 
   //If first render was, check URL-params and save them in Reduxe --->
@@ -59,7 +56,6 @@ const Home = () => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
       const { sortType, categoryId, currentPage } = params;
-      // const sort = sortOptions.find((item) => item === sortType);
       dispatch(
         setFilters({
           categoryId,
