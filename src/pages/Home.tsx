@@ -43,11 +43,28 @@ const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : categoryId == 0 ? '' : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    const res = await axios.get(
-      `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-    );
-    setPizzaItems(res.data);
-    setIsLoading(false);
+    // axios
+    //   .get(
+    //     `https://065b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+    //   )
+    //   .then((res) => {
+    //     setPizzaItems(res.data);
+    //     setIsLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     setIsLoading(false);
+    //   });
+
+    try {
+      const res = await axios.get(
+        `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+      );
+      setPizzaItems(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   //If first render was, check URL-params and save them in Reduxe --->
