@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,9 +10,11 @@ import Sort from '../components/Sort';
 import PizzaSkeleton from '../components/PizzaItem/PizzaSkeleton';
 import PizzaItem from '../components/PizzaItem';
 import { SearchContext } from '../App';
+
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { setSortFilter } from '../redux/slices/sortSlice';
 import { sortOptions } from '../components/Sort';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,9 +24,10 @@ const Home = () => {
 
   const categoryId = useSelector((state) => state.filter.categoryId);
   const currentPage = useSelector((state) => state.filter.currentPage);
+  const pizzaItems = useSelector((state) => state.pizza.items);
+  const dataLoadingStatus = useSelector((state) => state.pizza.status);
   const sortType = useSelector((state) => state.sort.sortType);
-  const [pizzaItems, setPizzaItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+
   const { searchValue } = useContext(SearchContext);
 
   const onClickCategory = (id) => {
@@ -35,36 +38,21 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = async () => {
-    setIsLoading(true);
-
+  const getPizzas = async () => {
     const order = sortType.includes('-') ? 'desc' : 'asc';
     const sortBy = sortType.replace('-', '');
     const category = categoryId > 0 ? `category=${categoryId}` : categoryId == 0 ? '' : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    // axios
-    //   .get(
-    //     `https://065b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-    //   )
-    //   .then((res) => {
-    //     setPizzaItems(res.data);
-    //     setIsLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     setIsLoading(false);
-    //   });
-
-    try {
-      const res = await axios.get(
-        `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-      );
-      setPizzaItems(res.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(
+      fetchPizzas({
+        order,
+        sortBy,
+        category,
+        search,
+        currentPage,
+      }),
+    );
   };
 
   //If first render was, check URL-params and save them in Reduxe --->
@@ -102,9 +90,7 @@ const Home = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (!isSearch.current) {
-      fetchPizzas();
-    }
+    getPizzas();
 
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
@@ -118,7 +104,7 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">All pizzas</h2>
-      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+      <div className="content__items">{dataLoadingStatus === 'loading' ? skeletons : pizzas}</div>
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
