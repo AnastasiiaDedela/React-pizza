@@ -104,7 +104,16 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">All pizzas</h2>
-      <div className="content__items">{dataLoadingStatus === 'loading' ? skeletons : pizzas}</div>
+      {dataLoadingStatus === 'error' ? (
+        <div className="cart cart--empty">
+          <h2>
+            Oops... something went wrong <span>😕</span>
+          </h2>
+          <p>Please, try again later</p>
+        </div>
+      ) : (
+        <div className="content__items">{dataLoadingStatus === 'loading' ? skeletons : pizzas}</div>
+      )}
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
