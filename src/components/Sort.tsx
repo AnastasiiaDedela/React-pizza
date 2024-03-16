@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 export const sortOptions = ['rating', '-rating', 'price', '-price', 'title', '-title'];
 
 function Sort() {
+  const dispatch = useDispatch();
+
   const sortState = useSelector((state) => state.sort.sortState);
   const sortType = useSelector((state) => state.sort.sortType);
-  const dispatch = useDispatch();
   const sortRef = useRef();
 
   const selectOption = (value) => {

@@ -11,7 +11,12 @@ import PizzaSkeleton from '../components/PizzaItem/PizzaSkeleton';
 import PizzaItem from '../components/PizzaItem';
 import { SearchContext } from '../App';
 
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import {
+  selectFilter,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from '../redux/slices/filterSlice';
 import { setSortFilter } from '../redux/slices/sortSlice';
 import { sortOptions } from '../components/Sort';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
