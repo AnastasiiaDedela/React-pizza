@@ -1,10 +1,21 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const PizzaDetails = () => {
+type TPizzaObj = {
+  imageUrl: string;
+  title: string;
+  price: number;
+};
+
+const PizzaDetails: React.FC = () => {
   const { id } = useParams();
-  const [pizza, setPizza] = useState();
+  const [pizza, setPizza] = useState<TPizzaObj>({
+    imageUrl: '',
+    title: '',
+    price: 0,
+  });
 
   useEffect(() => {
     async function fetchPizza() {
@@ -20,7 +31,7 @@ const PizzaDetails = () => {
   }, []);
 
   if (!pizza) {
-    return 'Loading...';
+    return <>Loading...</>;
   }
 
   return (

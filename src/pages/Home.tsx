@@ -1,7 +1,6 @@
-import { useEffect, useContext, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import qs from 'qs';
 
 import Categories from '../components/Categories';
@@ -12,7 +11,6 @@ import PizzaItem from '../components/PizzaItem';
 
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { setSortFilter } from '../redux/slices/sortSlice';
-import { sortOptions } from '../components/Sort';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
@@ -28,11 +26,11 @@ const Home = () => {
   const sortType = useSelector((state) => state.sort.sortType);
   const searchValue = useSelector((state) => state.filter.searchValue);
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
 

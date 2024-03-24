@@ -1,9 +1,6 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 import PizzaDetails from './pages/PizzaDetails';
 
-import Header from './components/Header';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
