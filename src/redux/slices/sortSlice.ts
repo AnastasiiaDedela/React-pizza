@@ -16,7 +16,6 @@ export const sortSlice = createSlice({
       state.sortState = action.payload;
     },
     setSortFilter(state, action){
-      console.log('sort action: ', action)
       state.sortType = action.payload.sortType;
     }
   },

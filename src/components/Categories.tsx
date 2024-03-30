@@ -1,6 +1,9 @@
-import { useState } from 'react';
+type TCategoriesProps = {
+  value: number;
+  onClickCategory: any;
+};
 
-function Categories({ value, onClickCategory }) {
+const Categories: React.FC<TCategoriesProps> = ({ value, onClickCategory }) => {
   const categories = ['All', 'Meat', 'Grill', 'Vegetarian', 'Spacy', 'Closed'];
 
   return (
@@ -17,6 +20,6 @@ function Categories({ value, onClickCategory }) {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

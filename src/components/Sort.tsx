@@ -2,16 +2,16 @@ import { useEffect, useRef } from 'react';
 import { setSortState, setSortType } from '../redux/slices/sortSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-export const sortOptions = ['rating', '-rating', 'price', '-price', 'title', '-title'];
+export const sortOptions: string[] = ['rating', '-rating', 'price', '-price', 'title', '-title'];
 
 function Sort() {
   const dispatch = useDispatch();
 
   const sortState = useSelector((state) => state.sort.sortState);
   const sortType = useSelector((state) => state.sort.sortType);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const selectOption = (value) => {
+  const selectOption = (value: string) => {
     dispatch(setSortType(value));
     dispatch(setSortState(false));
   };

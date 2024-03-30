@@ -13,7 +13,7 @@ import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filte
 import { setSortFilter } from '../redux/slices/sortSlice';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
@@ -30,8 +30,8 @@ const Home = () => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number: number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
@@ -41,6 +41,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         order,
         sortBy,
@@ -91,7 +92,7 @@ const Home = () => {
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = pizzaItems.map((object) => (
+  const pizzas = pizzaItems.map((object: any) => (
     <Link to={`/pizza/${object.id}`} key={object.id}>
       <PizzaItem {...object} />
     </Link>
