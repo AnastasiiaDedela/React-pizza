@@ -13,9 +13,6 @@ const Search: React.FC = () => {
     dispatch(setSearchValue(''));
     setValue('');
     inputRef.current?.focus();
-    // if(inputRef.current){
-    //   inputRef.current.focus();
-    // }
   };
 
   const updateSearchValue = useCallback(
@@ -26,7 +23,7 @@ const Search: React.FC = () => {
     [],
   );
 
-  const onChangeInput = (event: any) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };

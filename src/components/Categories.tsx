@@ -1,11 +1,11 @@
 type TCategoriesProps = {
   value: number;
-  onClickCategory: any;
+  onClickCategory: (index: number) => void;
 };
 
-const Categories: React.FC<TCategoriesProps> = ({ value, onClickCategory }) => {
-  const categories = ['All', 'Meat', 'Grill', 'Vegetarian', 'Spacy', 'Closed'];
+const categories: string[] = ['All', 'Meat', 'Grill', 'Vegetarian', 'Spacy', 'Closed'];
 
+const Categories: React.FC<TCategoriesProps> = ({ value, onClickCategory }) => {
   return (
     <div className="categories">
       <ul>
