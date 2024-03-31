@@ -3,7 +3,6 @@ import { TSortType, setSortState, setSortType } from '../redux/slices/sortSlice'
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const sortOptions: TSortType[] = ['rating', '-rating', 'price', '-price', 'title', '-title'];
 
 function Sort() {

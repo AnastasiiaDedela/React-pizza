@@ -7,7 +7,7 @@ import CartEmpty from '../components/CartEmpty';
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector(selectCart);
-  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item) => sum + item.count, 0);
 
   const onClickClear = () => {
     dispatch(clearItems());
@@ -82,11 +82,11 @@ const Cart: React.FC = () => {
                 stroke-linejoin="round"></path>
             </svg>
 
-            <span onClick={onClickClear}>Очистить корзину</span>
+            <span onClick={onClickClear}>Empty cart</span>
           </div>
         </div>
         <div className="content__items">
-          {items.map((item: any) => (
+          {items.map((item) => (
             <CartItem key={item.id} {...item} />
           ))}
         </div>
@@ -117,10 +117,10 @@ const Cart: React.FC = () => {
                   stroke-linejoin="round"></path>
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>Back</span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Purchase now</span>
             </div>
           </div>
         </div>

@@ -42,29 +42,29 @@ const PizzaItem: React.FC<TPizzaItemProps> = ({ id, title, price, imageUrl, size
         <Link to={`/pizza/${id}`} key={id}>
           <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
           <h4 className="pizza-block__title">{title}</h4>
-          <div className="pizza-block__selector">
-            <ul>
-              {types.map((type) => (
-                <li
-                  key={type}
-                  onClick={() => setActiveType(type)}
-                  className={activeType === type ? 'active' : ''}>
-                  {pizzaTypes[type]}
-                </li>
-              ))}
-            </ul>
-            <ul>
-              {sizes.map((size, index) => (
-                <li
-                  key={size}
-                  onClick={() => setActiveSize(index)}
-                  className={activeSize === index ? 'active' : ''}>
-                  {size} cm
-                </li>
-              ))}
-            </ul>
-          </div>
         </Link>
+        <div className="pizza-block__selector">
+          <ul>
+            {types.map((type) => (
+              <li
+                key={type}
+                onClick={() => setActiveType(type)}
+                className={activeType === type ? 'active' : ''}>
+                {pizzaTypes[type]}
+              </li>
+            ))}
+          </ul>
+          <ul>
+            {sizes.map((size, index) => (
+              <li
+                key={size}
+                onClick={() => setActiveSize(index)}
+                className={activeSize === index ? 'active' : ''}>
+                {size} cm
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">from {price} $</div>
           <div onClick={onClickAddProduct} className="button button--outline button--add">
