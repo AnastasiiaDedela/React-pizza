@@ -3,16 +3,32 @@ import axios from 'axios';
 
 export const fetchPizzas = createAsyncThunk(
   'pizza/fetchPizzasStatus',
-  async (params, thunkApi) => {
+  async (params: Record<string, string>) => {
     const { order, sortBy, category, search, currentPage } = params;
-    const res = await axios.get(
+    const { data } = await axios.get<TPizzaItem[]>(
       `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
     );
-    return res.data
+    return data as TPizzaItem[];
   },
 )
 
-const initialState = {
+export type TPizzaItem = {
+  id: string,
+  category: number,
+  imageUrl: string,
+  price: number,
+  rating: number,
+  sizes: number[],
+  title: string,
+  types: number[],
+}
+
+interface IPizzaSliceState {
+  items: TPizzaItem[],
+  status: 'loading' | 'success' | 'error'
+}
+
+const initialState:IPizzaSliceState = {
   items: [],
   status: 'loading'
 };

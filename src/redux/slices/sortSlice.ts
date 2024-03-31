@@ -1,7 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  sortType: 'rating',
+export type TSortType = 'rating'|'-rating'|'price'|'-price'|'title'|'-title';
+interface ISortSliceState {
+  sortType: TSortType,
+  sortState: boolean,
+}
+
+const initialState: ISortSliceState = {
+  sortType: '-price',
   sortState: false,
 };
 
@@ -9,13 +15,13 @@ export const sortSlice = createSlice({
   name: 'sort',
   initialState,
   reducers: {
-    setSortType(state, action) {
+    setSortType(state, action: PayloadAction<TSortType>) {
       state.sortType = action.payload;
     },
-    setSortState(state, action) {
+    setSortState(state, action: PayloadAction<boolean>) {
       state.sortState = action.payload;
     },
-    setSortFilter(state, action){
+    setSortFilter(state, action: PayloadAction<ISortSliceState>){
       state.sortType = action.payload.sortType;
     }
   },

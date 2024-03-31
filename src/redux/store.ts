@@ -8,4 +8,5 @@ const store = configureStore({
   reducer: { filter, sort, cart, pizza },
 });
 
-export default store;
+export type RootState = ReturnType<typeof store.getState>
+export default store

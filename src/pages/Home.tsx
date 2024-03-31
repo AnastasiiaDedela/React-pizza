@@ -12,6 +12,7 @@ import PizzaItem from '../components/PizzaItem';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { setSortFilter } from '../redux/slices/sortSlice';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -19,12 +20,12 @@ const Home: React.FC = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const currentPage = useSelector((state) => state.filter.currentPage);
-  const pizzaItems = useSelector((state) => state.pizza.items);
-  const dataLoadingStatus = useSelector((state) => state.pizza.status);
-  const sortType = useSelector((state) => state.sort.sortType);
-  const searchValue = useSelector((state) => state.filter.searchValue);
+  const searchValue = useSelector((state: RootState) => state.filter.searchValue);
+  const categoryId = useSelector((state: RootState) => state.filter.categoryId);
+  const currentPage = useSelector((state: RootState) => state.filter.currentPage);
+  const pizzaItems = useSelector((state: RootState) => state.pizza.items);
+  const dataLoadingStatus = useSelector((state: RootState) => state.pizza.status);
+  const sortType = useSelector((state: RootState) => state.sort.sortType);
 
   const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
@@ -41,7 +42,6 @@ const Home: React.FC = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
-      //@ts-ignore
       fetchPizzas({
         order,
         sortBy,

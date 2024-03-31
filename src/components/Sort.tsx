@@ -1,17 +1,19 @@
 import { useEffect, useRef } from 'react';
-import { setSortState, setSortType } from '../redux/slices/sortSlice';
+import { TSortType, setSortState, setSortType } from '../redux/slices/sortSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../redux/store';
 
-export const sortOptions: string[] = ['rating', '-rating', 'price', '-price', 'title', '-title'];
+// eslint-disable-next-line react-refresh/only-export-components
+export const sortOptions: TSortType[] = ['rating', '-rating', 'price', '-price', 'title', '-title'];
 
 function Sort() {
   const dispatch = useDispatch();
 
-  const sortState = useSelector((state) => state.sort.sortState);
-  const sortType = useSelector((state) => state.sort.sortType);
+  const sortState = useSelector((state: RootState) => state.sort.sortState);
+  const sortType = useSelector((state: RootState) => state.sort.sortType);
   const sortRef = useRef<HTMLDivElement>(null);
 
-  const selectOption = (value: string) => {
+  const selectOption = (value: TSortType) => {
     dispatch(setSortType(value));
     dispatch(setSortState(false));
   };
@@ -26,15 +28,16 @@ function Sort() {
 
   //eventlistener hanged on body to catch if was click outside the sort and close sort popup, return serves to delete the event listenet when the tage didmount
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      //(!event.composedPath().includes(sortRef.current))
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         dispatch(setSortState(false));
       }
     };
     document.body.addEventListener('click', handleClickOutside);
 
     return () => document.body.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [dispatch]);
 
   return (
     <div ref={sortRef} className="sort">
