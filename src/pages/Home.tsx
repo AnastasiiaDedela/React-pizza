@@ -59,17 +59,15 @@ const Home: React.FC = () => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
       const { categoryId, currentPage } = params;
-      const sortType: TSortType | undefined = params.sortType as TSortType | undefined;
-      if (sortType !== undefined) {
-        dispatch(
-          setFilters({
-            categoryId: Number(categoryId),
-            currentPage: Number(currentPage),
-          }),
-        );
-        dispatch(setSortFilter({ sortType, sortState: false }));
-        isSearch.current = true;
-      }
+      const sortType: TSortType = params.sortType as TSortType;
+      dispatch(
+        setFilters({
+          categoryId: Number(categoryId),
+          currentPage: Number(currentPage),
+        }),
+      );
+      dispatch(setSortFilter({ sortType }));
+      isSearch.current = true;
     }
   }, []);
 
@@ -85,7 +83,7 @@ const Home: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sortType, searchValue, currentPage, navigate]);
 
   //If first render was, send request to get pizzas
 
