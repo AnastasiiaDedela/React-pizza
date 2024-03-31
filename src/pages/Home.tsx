@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 
@@ -12,10 +12,11 @@ import PizzaItem from '../components/PizzaItem';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { setSortFilter } from '../redux/slices/sortSlice';
 import { TPizzaItem, fetchPizzas } from '../redux/slices/pizzaSlice';
-import { RootState } from '../redux/store';
+import { RootState, useAppDispatch } from '../redux/store';
+import { TSortType } from '../redux/slices/sortSlice';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -57,15 +58,18 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      const { sortType, categoryId, currentPage } = params;
-      dispatch(
-        setFilters({
-          categoryId,
-          currentPage,
-        }),
-      );
-      dispatch(setSortFilter({ sortType }));
-      isSearch.current = true;
+      const { categoryId, currentPage } = params;
+      const sortType: TSortType | undefined = params.sortType as TSortType | undefined;
+      if (sortType !== undefined) {
+        dispatch(
+          setFilters({
+            categoryId: Number(categoryId),
+            currentPage: Number(currentPage),
+          }),
+        );
+        dispatch(setSortFilter({ sortType, sortState: false }));
+        isSearch.current = true;
+      }
     }
   }, []);
 

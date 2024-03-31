@@ -3,10 +3,13 @@ import filter from './slices/filterSlice';
 import sort from './slices/sortSlice'
 import cart from './slices/cartSlice'
 import pizza from './slices/pizzaSlice'
+import { useDispatch } from 'react-redux';
 
 const store = configureStore({
   reducer: { filter, sort, cart, pizza },
 });
 
 export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 export default store
