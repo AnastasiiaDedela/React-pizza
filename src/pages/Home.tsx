@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 
 import Categories from '../components/Categories';
@@ -11,7 +11,7 @@ import PizzaItem from '../components/PizzaItem';
 
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { setSortFilter } from '../redux/slices/sortSlice';
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import { TPizzaItem, fetchPizzas } from '../redux/slices/pizzaSlice';
 import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {
@@ -92,11 +92,7 @@ const Home: React.FC = () => {
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = pizzaItems.map((object: any) => (
-    <Link to={`/pizza/${object.id}`} key={object.id}>
-      <PizzaItem {...object} />
-    </Link>
-  ));
+  const pizzas = pizzaItems.map((object: TPizzaItem) => <PizzaItem {...object} />);
   const skeletons = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />);
   return (
     <div className="container">

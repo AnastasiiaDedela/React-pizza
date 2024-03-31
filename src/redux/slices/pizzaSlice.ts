@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchPizzas = createAsyncThunk(
@@ -8,7 +8,7 @@ export const fetchPizzas = createAsyncThunk(
     const { data } = await axios.get<TPizzaItem[]>(
       `https://65b69bf5da3a3c16ab00f9b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
     );
-    return data as TPizzaItem[];
+    return data;
   },
 )
 
@@ -37,7 +37,7 @@ export const pizzaSlice = createSlice({
   name: 'pizza',
   initialState,
   reducers: {
-    setItems(state, action) {
+    setItems(state, action: PayloadAction<TPizzaItem[]>) {
       state.items = action.payload;
     },
   },
@@ -47,7 +47,7 @@ export const pizzaSlice = createSlice({
           state.status = "loading";
           state.items = []
        })
-       .addCase(fetchPizzas.fulfilled, (state, action) => {
+       .addCase(fetchPizzas.fulfilled, (state, action: PayloadAction<TPizzaItem[]>) => {
           state.items = action.payload
           state.status = "success";
        })

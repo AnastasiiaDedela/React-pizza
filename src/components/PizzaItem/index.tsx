@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { TCartItem, addItem, selectCartItemById } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
 
 type TPizzaItemProps = {
   id: string;
@@ -17,6 +18,7 @@ const PizzaItem: React.FC<TPizzaItemProps> = ({ id, title, price, imageUrl, size
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const cartItem = useSelector(selectCartItemById(id));
+  // const pizzaItems = useSelector((state: RootState) => state.pizza.items);
   const dispatch = useDispatch();
 
   const addedCount = cartItem ? cartItem.count : 0;
@@ -37,30 +39,32 @@ const PizzaItem: React.FC<TPizzaItemProps> = ({ id, title, price, imageUrl, size
   return (
     <div className="pizza-block__wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
-        <div className="pizza-block__selector">
-          <ul>
-            {types.map((type) => (
-              <li
-                key={type}
-                onClick={() => setActiveType(type)}
-                className={activeType === type ? 'active' : ''}>
-                {pizzaTypes[type]}
-              </li>
-            ))}
-          </ul>
-          <ul>
-            {sizes.map((size, index) => (
-              <li
-                key={size}
-                onClick={() => setActiveSize(index)}
-                className={activeSize === index ? 'active' : ''}>
-                {size} cm
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Link to={`/pizza/${id}`} key={id}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
+          <div className="pizza-block__selector">
+            <ul>
+              {types.map((type) => (
+                <li
+                  key={type}
+                  onClick={() => setActiveType(type)}
+                  className={activeType === type ? 'active' : ''}>
+                  {pizzaTypes[type]}
+                </li>
+              ))}
+            </ul>
+            <ul>
+              {sizes.map((size, index) => (
+                <li
+                  key={size}
+                  onClick={() => setActiveSize(index)}
+                  className={activeSize === index ? 'active' : ''}>
+                  {size} cm
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Link>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">from {price} $</div>
           <div onClick={onClickAddProduct} className="button button--outline button--add">
