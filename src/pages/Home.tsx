@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
@@ -28,9 +28,9 @@ const Home: React.FC = () => {
   const dataLoadingStatus = useSelector((state: RootState) => state.pizza.status);
   const sortType = useSelector((state: RootState) => state.sort.sortType);
 
-  const onClickCategory = (id: number) => {
+  const onClickCategory = useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType, searchValue, currentPage, navigate]);
+  }, [categoryId, sortType, currentPage, navigate]);
 
   //If first render was, send request to get pizzas
 
@@ -92,9 +92,9 @@ const Home: React.FC = () => {
     getPizzas();
 
     isSearch.current = false;
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sortType, currentPage]);
 
-  const pizzas = pizzaItems.map((object: TPizzaItem) => <PizzaItem {...object} />);
+  const pizzas = pizzaItems.map((object: TPizzaItem) => <PizzaItem key={object.id} {...object} />);
   const skeletons = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />);
   return (
     <div className="container">

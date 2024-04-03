@@ -1,3 +1,5 @@
+import { useWhyDidYouUpdate } from 'use-why-did-you-update';
+
 type TCategoriesProps = {
   value: number;
   onClickCategory: (index: number) => void;
@@ -6,6 +8,7 @@ type TCategoriesProps = {
 const categories: string[] = ['All', 'Meat', 'Grill', 'Vegetarian', 'Spacy', 'Closed'];
 
 const Categories: React.FC<TCategoriesProps> = ({ value, onClickCategory }) => {
+  useWhyDidYouUpdate('Categories', { value, onClickCategory });
   return (
     <div className="categories">
       <ul>
