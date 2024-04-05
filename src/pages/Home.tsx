@@ -83,7 +83,7 @@ const Home: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType, currentPage, navigate]);
+  }, [categoryId, sortType, currentPage, searchValue, navigate]);
 
   //If first render was, send request to get pizzas
 
@@ -92,7 +92,7 @@ const Home: React.FC = () => {
     getPizzas();
 
     isSearch.current = false;
-  }, [categoryId, sortType, currentPage]);
+  }, [categoryId, sortType, currentPage, searchValue]);
 
   const pizzas = pizzaItems.map((object: TPizzaItem) => <PizzaItem key={object.id} {...object} />);
   const skeletons = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />);
@@ -100,7 +100,7 @@ const Home: React.FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onClickCategory={onClickCategory} />
-        <Sort />
+        <Sort sortType={sortType} />
       </div>
       <h2 className="content__title">All pizzas</h2>
       {dataLoadingStatus === 'error' ? (

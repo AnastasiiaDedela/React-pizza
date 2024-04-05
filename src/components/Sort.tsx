@@ -1,15 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { TSortType, setSortState, setSortType } from '../redux/slices/sortSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 
+type TSortPoprs = {
+  sortType: TSortType;
+};
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const sortOptions: TSortType[] = ['rating', '-rating', 'price', '-price', 'title', '-title'];
 
-function Sort() {
+const Sort: React.FC<TSortPoprs> = memo(({ sortType }) => {
   const dispatch = useDispatch();
 
   const sortState = useSelector((state: RootState) => state.sort.sortState);
-  const sortType = useSelector((state: RootState) => state.sort.sortType);
   const sortRef = useRef<HTMLDivElement>(null);
 
   const selectOption = (value: TSortType) => {
@@ -76,6 +80,6 @@ function Sort() {
       )}
     </div>
   );
-}
+});
 
 export default Sort;

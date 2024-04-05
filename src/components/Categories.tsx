@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useWhyDidYouUpdate } from 'use-why-did-you-update';
 
 type TCategoriesProps = {
@@ -7,7 +8,7 @@ type TCategoriesProps = {
 
 const categories: string[] = ['All', 'Meat', 'Grill', 'Vegetarian', 'Spacy', 'Closed'];
 
-const Categories: React.FC<TCategoriesProps> = ({ value, onClickCategory }) => {
+const Categories: React.FC<TCategoriesProps> = memo(({ value, onClickCategory }) => {
   useWhyDidYouUpdate('Categories', { value, onClickCategory });
   return (
     <div className="categories">
@@ -23,6 +24,6 @@ const Categories: React.FC<TCategoriesProps> = ({ value, onClickCategory }) => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;
