@@ -1,13 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-export type TSearchPizzaParams = {
-  order: string, 
-  sortBy: string, 
-  category: string, 
-  search: string,
-  currentPage: number
-}
+import { IPizzaSliceState, Status, TPizzaItem, TSearchPizzaParams } from './types';
 
 export const fetchPizzas = createAsyncThunk(
   'pizza/fetchPizzasStatus',
@@ -19,27 +12,6 @@ export const fetchPizzas = createAsyncThunk(
     return data;
   },
 )
-
-export type TPizzaItem = {
-  id: string,
-  category: number,
-  imageUrl: string,
-  price: number,
-  rating: number,
-  sizes: number[],
-  title: string,
-  types: number[],
-}
-
-export enum Status {
-  LOADING = 'loading' ,
-  SUCCESS = 'success' ,
-  ERROR = 'error'
-}
-interface IPizzaSliceState {
-  items: TPizzaItem[],
-  status: Status
-}
 
 const initialState:IPizzaSliceState = {
   items: [],

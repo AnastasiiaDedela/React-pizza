@@ -9,11 +9,12 @@ import Sort from '../components/Sort';
 import PizzaSkeleton from '../components/PizzaItem/PizzaSkeleton';
 import PizzaItem from '../components/PizzaItem';
 
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import { setSortFilter } from '../redux/slices/sortSlice';
-import { TPizzaItem, fetchPizzas } from '../redux/slices/pizzaSlice';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filter/slice';
+import { setSortFilter } from '../redux/slices/sort/slice';
+import { fetchPizzas } from '../redux/slices/pizza/slice';
 import { RootState, useAppDispatch } from '../redux/store';
-import { TSortType } from '../redux/slices/sortSlice';
+import { TSortType } from '../redux/slices/sort/types';
+import { TPizzaItem } from '../redux/slices/pizza/types';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();

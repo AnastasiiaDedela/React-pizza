@@ -1,7 +1,8 @@
 import { memo, useEffect, useRef } from 'react';
-import { TSortType, setSortState, setSortType } from '../redux/slices/sortSlice';
+import { setSortState, setSortType } from '../redux/slices/sort/slice';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
+import { TSortType } from '../redux/slices/sort/types';
 
 type TSortPoprs = {
   sortType: TSortType;

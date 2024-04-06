@@ -1,10 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-
-export type TSortType = 'rating'|'-rating'|'price'|'-price'|'title'|'-title';
-export interface ISortSliceState {
-  sortType: TSortType,
-  sortState?: boolean,
-}
+import { ISortSliceState, TSortType } from './types';
 
 const initialState: ISortSliceState = {
   sortType: '-price',
