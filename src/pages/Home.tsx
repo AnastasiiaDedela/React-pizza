@@ -11,10 +11,10 @@ import PizzaItem from '../components/PizzaItem';
 
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filter/slice';
 import { setSortFilter } from '../redux/slices/sort/slice';
-import { fetchPizzas } from '../redux/slices/pizza/slice';
 import { RootState, useAppDispatch } from '../redux/store';
 import { TSortType } from '../redux/slices/sort/types';
 import { TPizzaItem } from '../redux/slices/pizza/types';
+import { fetchPizzas } from '../redux/slices/pizza/asyncActions';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
