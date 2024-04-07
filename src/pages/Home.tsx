@@ -107,7 +107,7 @@ const Home: React.FC = () => {
       {dataLoadingStatus === 'error' ? (
         <div className="cart cart--empty">
           <h2>
-            Oops... something went wrong <span>😕</span>
+            Oops... something went wrong, sorry <span>😕</span>
           </h2>
           <p>Please, try again later</p>
         </div>
